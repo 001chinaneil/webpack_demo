@@ -1,4 +1,5 @@
 const path = require('path');
+const uglify = require('uglifyjs-webpack-plugin');
 module.exports = {
     //入口配置
     entry: {
@@ -12,10 +13,17 @@ module.exports = {
     },
     //依赖包
     module: {
-
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader','css-loader']
+            }
+        ]
     },
     //插件
-    plugins: [],
+    plugins: [
+        new uglify()
+    ],
     devServer: {
         //设置基本目录结构
         contentBase:path.resolve(__dirname,'dist'),
@@ -24,6 +32,6 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1717
+        port: 1721
     }
 }
