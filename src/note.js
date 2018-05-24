@@ -76,3 +76,8 @@
 * 3.url-loader封装了file-loader
 * 4.纠正: 匹配图片的正则表达式: test: /\.(png|gif|jpg)$/ ，技术胖这里写错了。
 * */
+
+//第九节: 图片分离: CSS分离与图片路径处理(未完)
+/*
+* 1.需要CSS从JS文件中分离: extract-text-webpack-plugin
+* */

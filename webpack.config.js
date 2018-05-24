@@ -1,6 +1,10 @@
 const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
+const extractTextPlugin = require('extract-text-webpack-plugin');
+const webSite = {
+    publicPath: 'http://127.0.0.1:1730'
+}
 module.exports = {
     //入口配置
     entry: {
@@ -10,14 +14,18 @@ module.exports = {
     output: {
         //node的知识
         path: path.resolve(__dirname,'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: webSite.publicPath
     },
     //依赖包
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader','css-loader']
+                use: extractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
             },
             {
                 test: /\.(png|gif|jpg)$/,
@@ -39,7 +47,8 @@ module.exports = {
             },
             hash: true,
             template: './src/index.html'
-        })
+        }),
+        new extractTextPlugin('/css/index.css')
     ],
     devServer: {
         //设置基本目录结构
@@ -49,6 +58,6 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1728
+        port: 1730
     }
 }
