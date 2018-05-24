@@ -54,3 +54,25 @@
 *   执行命令，默认用的是全局环境？
 * 4.webpack-dev-server不能用: 版本问题，换个版本就好了。
 * */
+
+//第七节 插件配置: HTML的发布
+/*
+* 1.把html代码放到开发环境中，就是在src目录下
+* 2.需要html-webpack-plugin包环境安装到本地项目中
+* 3.webpack.config.js里面的插件配置: 先在此文件引入html-webpack-plugin包
+*   new htmlPlugin({
+*       minify: {
+*           removeAttributeQuotes: true
+*       },
+*       hash: true,
+*       template: './src/index.html'
+*   })
+* */
+
+//第八节 图片迈坑: css中的图片处理
+/*
+* 1.需要图片解析用的loader: file-loader url-loader
+* 2.limit参数: 把小于这个参数值的图片打成Base64格式，写入JS。
+* 3.url-loader封装了file-loader
+* 4.纠正: 匹配图片的正则表达式: test: /\.(png|gif|jpg)$/ ，技术胖这里写错了。
+* */
