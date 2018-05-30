@@ -3,7 +3,7 @@ const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const webSite = {
-    publicPath: 'http://127.0.0.1:1730'
+    publicPath: 'http://127.0.0.1:1734'
 }
 module.exports = {
     //入口配置
@@ -25,7 +25,8 @@ module.exports = {
                 use: extractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: 'css-loader'
-                })
+                }),
+                exclude: /node_modules/
             },
             {
                 test: /\.(png|gif|jpg)$/,
@@ -48,7 +49,7 @@ module.exports = {
             hash: true,
             template: './src/index.html'
         }),
-        new extractTextPlugin('/css/index.css')
+        new extractTextPlugin('css/index.css')
     ],
     devServer: {
         //设置基本目录结构
@@ -58,6 +59,6 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1730
+        port: 1734
     }
 }
