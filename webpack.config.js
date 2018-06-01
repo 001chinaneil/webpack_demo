@@ -3,7 +3,7 @@ const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const webSite = {
-    publicPath: 'http://127.0.0.1:1734'
+    publicPath: 'http://127.0.0.1:1767'
 }
 module.exports = {
     //入口配置
@@ -36,6 +36,13 @@ module.exports = {
                         limit: 500000
                     }
                 }]
+            },
+            {
+                test:/\.js$/, //匹配.js文件
+                //排除也就是不转换node_modules下面的.js文件
+                exclude: /(node_modules|bower_components)/,
+                //加载器  webpack2需要loader写完整 不能写babel 要写 bable-loader
+                use:[{loader:"babel-loader"}]
             }
         ]
     },
@@ -59,6 +66,6 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1734
+        port: 1767
     }
 }
