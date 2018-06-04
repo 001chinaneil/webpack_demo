@@ -6,4 +6,11 @@ body{
     background-image: url(../images/manhua.png);
     width:466px;
     height:453px;
+    transform: rotate(45deg);
+}
+
+.textClass{
+    background: blue;
+    font-size: 30px;
+    font-weight: bold;
 }

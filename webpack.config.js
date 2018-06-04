@@ -2,8 +2,10 @@ const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
+const glob = require('glob');
+const purifyCssPlugin = require('purifycss-webpack');
 const webSite = {
-    publicPath: 'http://127.0.0.1:1767'
+    publicPath: 'http://127.0.0.1:1770'
 }
 module.exports = {
     //入口配置
@@ -43,6 +45,42 @@ module.exports = {
                 exclude: /(node_modules|bower_components)/,
                 //加载器  webpack2需要loader写完整 不能写babel 要写 bable-loader
                 use:[{loader:"babel-loader"}]
+            },
+            {
+                test: /\.less$/,
+                // use: [{
+                //     loader: "style-loader"
+                // },{
+                //     loader: "css-loader"
+                // },{
+                //     loader: "less-loader"
+                // }],
+                use: extractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    },{
+                        loader: "less-loader"
+                    }],
+                    fallback: "style-loader"
+                })
+            },
+            {
+                test: /\.scss$/,
+                // use: [{
+                //     loader: "style-loader"
+                // },{
+                //     loader: "css-loader"
+                // },{
+                //     loader: "sass-loader"
+                // }]
+                use: extractTextPlugin.extract({
+                    use: [{
+                        loader: "css-loader"
+                    },{
+                        loader: "sass-loader"
+                    }],
+                    fallback: "style-loader"
+                })
             }
         ]
     },
@@ -56,7 +94,10 @@ module.exports = {
             hash: true,
             template: './src/index.html'
         }),
-        new extractTextPlugin('css/index.css')
+        new extractTextPlugin('css/index.css'),
+        new purifyCssPlugin({
+            paths: glob.sync(path.join(__dirname,'src/*.html'))
+        })
     ],
     devServer: {
         //设置基本目录结构
@@ -66,6 +107,6 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1767
+        port: 1770
     }
 }

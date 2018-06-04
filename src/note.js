@@ -87,9 +87,9 @@
 //第十节: 图片迈坑: 处理HTML中的图片(卡在了这里)
 /*
 * 1.--save-dev 和 --save的区别和作用？
-*   --save-dev: 是开发环境先的配置[只在开发环境中使用]
+*   --save-dev: 是开发环境的配置[只在开发环境中使用]
 *   --save: 是生产环境的配置，[生产环境同样要使用的配置]
-* 2.查看电脑端口号占用情况: lsof -i:占用的端口号
+* 2.查看电脑端口号占用情况: lsof -i:占用的端口号  或者 lsof -i tcp:端口号
 *   kill 杀死占用端口的进程
 * */
 
@@ -98,4 +98,36 @@
 * 1.Less是一门预处理语言，扩展了CSS语言，增加了Mixin，变量，函数等特性，使CSS更易维护和拓展，
 * 简言之就是给CSS语言加入了编程机制
 * 2.安装: less 和 less-loader
+* 3.总结:
+*   webpack是打包过程，webpack-dev-server是本地热更新也打包了
+* */
+
+//第十二节: CSS进阶: SASS文件的打包和分离
+/*
+* 1.需要的包: node-sass 和 sass-loader
+* 2.需要新安装node-sass，因为sass-loader依赖于node-sass，[被依赖的要先安装]
+* 3.[后面学一下Less 和 Sass语言]
+* 4.SCSS是Sass和CSS过渡的语言，其实是Sass的新语法形式，书写形式和CSS很像。
+* 5.总结:
+*   webpack 命令 也是就是打包操作，webpack-dev-server是打包热更新操作
+*   webpack就是把css和JS打包进了一个文件，这样下去，一个文件超大怎么办？[❤️]
+* */
+
+//第十三节 CSS进阶: 自动处理CSS3属性前缀(卡住了)
+/*
+* 1.需要postcss-loader给CSS3自动添加前缀 和 autoprefixer(自动添加前缀的插件)
+* 2.在项目根目录新建 postcss.config.js 文件
+* 3.[webpack版本的不同，真是会出现不同的问题啊]
+* */
+
+//第十四节 CSS进阶: 消除未使用的CSS
+/*
+* 1.需要插件 PurifyCSS-webpack purify-css [安装并需要在webpack.config.js里面引入
+*   和配合extract-text-webpack-plugin插件使用]
+* 2. -D 是 --save-dev的简写
+* */
+
+//第十五节 给webpack增加babel支持
+/*
+* 1.
 * */
