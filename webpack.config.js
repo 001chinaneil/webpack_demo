@@ -4,14 +4,29 @@ const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const glob = require('glob');
 const purifyCssPlugin = require('purifycss-webpack');
-const webSite = {
-    publicPath: 'http://127.0.0.1:1770'
+
+const entry = require('./webpack_config/entry_config');
+
+const webpack = require('webpack');
+
+// const webSite = {
+//     publicPath: 'http://127.0.0.1:1773'
+// }
+let webSite;
+//利用Node的语法来读取type的值
+if(process.env.type== "build"){
+    webSite = {
+        publicPath:"http://127.0.0.1:1777"
+    }
+}else{
+    webSite = {
+        publicPath:"http://cdn.jspang.com/"
+    }
 }
+console.log( encodeURIComponent(process.env.type) );
 module.exports = {
     //入口配置
-    entry: {
-        entry: './src/entry.js'
-    },
+    entry: entry.path, //改成模块化加载了
     //出口配置
     output: {
         //node的知识
@@ -81,6 +96,13 @@ module.exports = {
                     }],
                     fallback: "style-loader"
                 })
+            },
+            {
+                test: /\.(jsx|js)$/,
+                use: {
+                    loader: 'babel-loader'
+                },
+                exclude: /node_modules/
             }
         ]
     },
@@ -97,6 +119,12 @@ module.exports = {
         new extractTextPlugin('css/index.css'),
         new purifyCssPlugin({
             paths: glob.sync(path.join(__dirname,'src/*.html'))
+        }),
+        new webpack.BannerPlugin('wy_neil@126.com neil版权所有'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['jquery','vue'],
+            filename: 'assets/js/[name].js',
+            minChunk: 2
         })
     ],
     devServer: {
@@ -107,6 +135,12 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1770
+        port: 1777
+    },
+    devtool: 'source-map', //调试模式
+    watchOptions: {
+        poll: 1000, //检测修改的时间
+        aggregeateTimeout: 500, //在500ms内的重复按键 不算
+        ignored: /node_modules/  //忽略检测
     }
 }

@@ -129,5 +129,87 @@
 
 //第十五节 给webpack增加babel支持
 /*
-* 1.
+* 1.需要 babel-core babel-loader babel-preset-es2015 babel-preset-react
+* 2.需要新建 .babelrc 文件放置babel配置文件
+* */
+
+//第十六节 打包后如何调试(没体会到作用，等后面实际开发中再说)
+/*
+* 1.webpack提供了四种调试方式
+*   a.source-map
+*   b.cheap-module-source-map
+*   c.eval-module-source-map
+*   d.cheap-eval-module-source-map
+* 2.其实一直在使用Node，webpack的使用核心是webpack.config.js的配置，一次配置，处处可复制。
+* */
+
+//第十七节 实战技巧: 开发和生产并行设置
+/*
+* 1.开发依赖: devDependencies
+*   生产依赖: dependencies
+* 2.安装: --save 是生产环境需要依赖的包    --save-dev 是开发环境需要依赖的包
+* 3.npm install 是安装开发环境需要依赖的所有包
+*   npm install --production 是安装生产环境需要依赖的包
+* 4.配置生产和开发并行: (命令设置)
+*   "dev": "set type=dev&webpack"
+*   "build": "set type=build&webpack"
+* 5.修改webpack.config.js的配置
+*   if(process.env.type== "build"){
+        var website={
+            publicPath:"http://192.168.0.104:1717/"
+        }
+    }else{
+        var website={
+            publicPath:"http://cdn.jspang.com/"
+        }
+    }
+  6.Mac下 set 要换成 export;并且是&& (2个)
+* */
+
+//第十八节 实战技巧: webpack模块化配置
+/*
+* 1.module.exports = ... 模块化输出    require() 引入模块
+*   重点: exports 有s。
+* */
+
+//第十九节 实战技巧: 优雅打包第三方类库
+/*
+* 1.npm install jquery --save ，然后在需要引入的地方 import $ form 'jquery'
+*   (任意想引入的文件都可以)
+* 2.plugin方式(这是一种全局性的方式): 需要ProvidePlugin，它是webpack自带的插件，
+*   所以要在webpack.config.js里引入webpack
+*   eg:
+*   const webpack = require('webpack');
+*   插件部分的配置: new webpack.ProvidePlugin({
+*       $: "jquery"
+*   })
+* 3.Vue-cli是Vue自己的webpack框架
+* */
+
+//第二十节 实战技巧: watch的正确使用方法
+/*
+* 1.在webpack.config.js中配置watchOptions选项
+*   poll: 1000 是检测修改时间
+*   aggregeateTimeout: 500 是重复按键时间
+*   ignored: /node_modules/ 是忽略检测的文件
+* 2.命令: webpack --watch
+* 3.自动写 备注插件 BannerPlugin 是webpack自带的
+*   eg: 在plugins选项中 new webpack.BannerPlugin('neil 版权所有')
+* */
+
+//第二十一节 实战技巧: webpack优化黑技能
+/*
+* 1.引入第三方类库时，ProvidePlugin是按需打包所需的第三方类库，不需要就不打包，
+*   而import方法，则是都要打包的。所以一般情况下，使用插件的形式进行引入。
+* 2.抽离第三方类库，分3步走:
+*   a.安装 --save
+*   b.修改入口文件
+*     jquery: 'jquery'
+*     vue: 'vue'
+*   c.修改CommonsChunkPlugin配置
+*     name: ['jquery','vue']
+*     filename: 'assets/js/[name].js'
+*     minChunk: 2
+* 3.抽离第三方类库需要 optimize 插件(是webpack自带的)
+*   eg: new webpack.optimize.CommonsChunkPlugin({ })
 * */
