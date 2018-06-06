@@ -17,7 +17,7 @@ let webSite;
 //利用Node的语法来读取type的值
 if(process.env.type== "build"){
     webSite = {
-        publicPath:"http://127.0.0.1:1780"
+        publicPath:"http://127.0.0.1:1781"
     }
 }else{
     webSite = {
@@ -42,7 +42,10 @@ module.exports = {
                 test: /\.css$/,
                 use: extractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader'
+                    use: [
+                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        'postcss-loader'
+                    ]
                 }),
                 exclude: /node_modules/
             },
@@ -104,6 +107,10 @@ module.exports = {
                     loader: 'babel-loader'
                 },
                 exclude: /node_modules/
+            },
+            {
+                test: /\.(html|htm)$/,
+                use: ['html-withimg-loader']
             }
         ]
     },
@@ -143,7 +150,7 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1780
+        port: 1781
     },
     devtool: 'source-map', //调试模式
     watchOptions: {
