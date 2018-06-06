@@ -1,3 +1,3 @@
 /*! wy_neil@126.com neil版权所有 */
-webpackJsonp([0],[,,,function(t,e,n){"use strict";u(n(4)),u(n(5)),u(n(6));var l=u(n(1));function u(t){return t&&t.__esModule?t:{default:t}}document.getElementById("title").innerHTML="Hello Webpack",(0,l.default)("#title").html("Hello jspang")},function(t,e){},function(t,e){},function(t,e){}],[3]);
+webpackJsonp([0],[,,,function(e,n,t){"use strict";l(t(4)),l(t(5)),l(t(6));var o=l(t(1));function l(e){return e&&e.__esModule?e:{default:e}}document.getElementById("title").innerHTML="Hello Webpack";var u=t(7);(0,o.default)("#json").html(u.name),(0,o.default)("#title").html("Hello jspang")},function(e,n){},function(e,n){},function(e,n){},function(e,n){e.exports={name:"src",version:"0.0.1",dependencies:{}}}],[3]);
 //# sourceMappingURL=bundle.js.map

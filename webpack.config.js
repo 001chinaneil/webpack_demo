@@ -4,6 +4,7 @@ const htmlPlugin = require('html-webpack-plugin');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const glob = require('glob');
 const purifyCssPlugin = require('purifycss-webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
 
 const entry = require('./webpack_config/entry_config');
 
@@ -16,7 +17,7 @@ let webSite;
 //利用Node的语法来读取type的值
 if(process.env.type== "build"){
     webSite = {
-        publicPath:"http://127.0.0.1:1777"
+        publicPath:"http://127.0.0.1:1780"
     }
 }else{
     webSite = {
@@ -125,6 +126,13 @@ module.exports = {
             name: ['jquery','vue'],
             filename: 'assets/js/[name].js',
             minChunk: 2
+        }),
+        new copyWebpackPlugin([{
+            from: __dirname + '/src',
+            to: './public'
+        }]),
+        new webpack.HotModuleReplacementPlugin({
+
         })
     ],
     devServer: {
@@ -135,7 +143,7 @@ module.exports = {
         //服务端压缩是否开启
         compress: true,
         //配置服务端口号
-        port: 1777
+        port: 1780
     },
     devtool: 'source-map', //调试模式
     watchOptions: {
